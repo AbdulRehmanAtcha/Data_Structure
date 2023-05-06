@@ -46,28 +46,64 @@ void traverse(struct Node *head)
     printf("\n");
     printf("\n");
 }
-struct Node* search(struct Node *head, int data)
+int search(struct Node *head, int data)
 {
-    struct Node* temp = head;
+    int index = 0;
+    struct Node *temp = head;
     while (temp != NULL)
     {
         if (temp->data == data)
         {
-            return temp;
+            return index;
             /* code */
         }
         temp = temp->next;
-    
+        index++;
     }
-    
-    
+    return -1;
+}
+
+void deleteNode(struct Node **head, int data)
+{
+    if (*head == NULL)
+    {
+        printf("Linked List is empty. \n");
+        printf("\n");
+
+        return;
+    }
+    struct Node *current = *head;
+    struct Node *prev = NULL;
+    while (current != NULL && current->data != data)
+    {
+        /* code */
+        prev = current;
+        current = current->next;
+    }
+    if (current == NULL)
+    {
+        printf("Value Not Found. \n");
+        printf("\n");
+
+        return;
+    }
+    if (prev == NULL)
+    {
+        *head = current->next;
+    }
+    else
+    {
+        prev->next = current->next;
+    }
+    free(current);
+    printf("Node Deleted Successfully. \n");
+    printf("\n");
 }
 
 int main()
 {
-    int choice, data, toSearch;
+    int choice, data, toSearch, toDelete;
     struct Node *head = NULL;
-    struct Node* searchResult;
 
     while (1)
     {
@@ -75,6 +111,7 @@ int main()
         printf("1. Insert\n");
         printf("2. Traverse\n");
         printf("3. Search\n");
+        printf("4. Delete\n");
         printf("0. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -92,19 +129,24 @@ int main()
         case 3:
             printf("Enter the number you wants to search: ");
             scanf("%d", &toSearch);
-            searchResult = search(head, toSearch);
-            if (searchResult != NULL)
+            int index = search(head, toSearch);
+            if (index == -1)
             {
                 /* code */
+                printf("Not Found");
+                printf("\n");
+            }
+            else
+            {
                 printf("Found");
                 printf("\n");
             }
-            else{
-                printf("Not Found");
-                printf("\n");
 
-            }
-            
+            break;
+        case 4:
+            printf("Enter the value to delete: ");
+            scanf("%d", &toDelete);
+            deleteNode(&head, toDelete);
             break;
         case 0:
             printf("Thankss");
