@@ -42,13 +42,13 @@ void traverse(struct Node *head)
     {
         printf("Elements in Circular Linked List are \n");
         struct Node *temp = head;
-        while (temp->next != head)
+        do
         {
             /* code */
             printf("%d ", temp->data);
             temp = temp->next;
-        }
-        printf("%d ", temp->data);
+        } while (temp != head);
+
         printf("\n");
     }
 }
@@ -64,14 +64,15 @@ int search(struct Node *head, int data)
     do
     {
         /* code */
-        if(temp->data == data){
+        if (temp->data == data)
+        {
             index = 1;
             return index;
             break;
         }
         temp = temp->next;
     } while (temp != head);
-    
+
     return -1;
 }
 int main()
@@ -103,14 +104,15 @@ int main()
             printf("Enter the value to search: ");
             scanf("%d", &toSearch);
             isFound = search(head, toSearch);
-            if(isFound == -1){
+            if (isFound == -1)
+            {
                 printf("Not Found.");
                 printf("\n");
             }
-            else{
+            else
+            {
                 printf("Found.");
                 printf("\n");
-
             }
             break;
         case 0:
