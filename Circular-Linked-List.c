@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 struct Node
 {
     int data;
@@ -14,109 +13,78 @@ void insert(struct Node **head, int data)
     if (*head == NULL)
     {
         *head = newNode;
+        newNode->next = *head;
     }
     else
     {
         struct Node *temp = *head;
-        while (temp->next != NULL)
+        while (temp->next != *head)
         {
+            /* code */
             temp = temp->next;
         }
         temp->next = newNode;
+        newNode->next = *head;
     }
-    printf("Successfull Insertion \n");
+    printf("Successfully Inserted");
     printf("\n");
-};
+}
 void traverse(struct Node *head)
 {
     if (head == NULL)
     {
-        printf("Emptyyy \n");
-        return;
-    }
-    else if (head != NULL)
-    {
-        struct Node *temp = head;
-        while (temp != NULL)
-        {
-            printf("%d ", temp->data);
-            temp = temp->next;
-        }
-    }
-    printf("\n");
-    printf("\n");
-}
-int search(struct Node *head, int data)
-{
-    if (head == NULL)
-    {
-        printf("Linked List is empty.");
-        printf("\n");
-    }
-    int index = 0;
-    struct Node *temp = head;
-    while (temp != NULL)
-    {
-        if (temp->data == data)
-        {
-            return index;
-            /* code */
-        }
-        temp = temp->next;
-        index++;
-    }
-    return -1;
-}
-
-void deleteNode(struct Node **head, int data)
-{
-    if (*head == NULL)
-    {
-        printf("Linked List is empty. \n");
+        printf("Circular Linked List is empty");
         printf("\n");
 
         return;
-    }
-    struct Node *current = *head;
-    struct Node *prev = NULL;
-    while (current != NULL && current->data != data)
-    {
-        /* code */
-        prev = current;
-        current = current->next;
-    }
-    if (current == NULL)
-    {
-        printf("Value Not Found. \n");
-        printf("\n");
-
-        return;
-    }
-    if (prev == NULL)
-    {
-        *head = current->next;
     }
     else
     {
-        prev->next = current->next;
+        printf("Elements in Circular Linked List are \n");
+        struct Node *temp = head;
+        while (temp->next != head)
+        {
+            /* code */
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("%d ", temp->data);
+        printf("\n");
     }
-    free(current);
-    printf("Node Deleted Successfully. \n");
-    printf("\n");
 }
-
+int search(struct Node *head, int data)
+{
+    int index = 0;
+    if (head == NULL)
+    {
+        printf("Circular Linked List is empty.");
+        printf("\n");
+    }
+    struct Node *temp = head;
+    do
+    {
+        /* code */
+        if(temp->data == data){
+            index = 1;
+            return index;
+            break;
+        }
+        temp = temp->next;
+    } while (temp != head);
+    
+    return -1;
+}
 int main()
 {
-    int choice, data, toSearch, toDelete;
+    int choice, data, toSearch, isFound;
     struct Node *head = NULL;
 
     while (1)
     {
-        printf("\nLinked List Operations:\n");
+        printf("\nCircular Linked List Operations:\n");
         printf("1. Insert\n");
         printf("2. Traverse\n");
         printf("3. Search\n");
-        printf("4. Delete\n");
         printf("0. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -132,26 +100,18 @@ int main()
             traverse(head);
             break;
         case 3:
-            printf("Enter the number you wants to search: ");
+            printf("Enter the value to search: ");
             scanf("%d", &toSearch);
-            int index = search(head, toSearch);
-            if (index == -1)
-            {
-                /* code */
-                printf("Not Found");
+            isFound = search(head, toSearch);
+            if(isFound == -1){
+                printf("Not Found.");
                 printf("\n");
             }
-            else
-            {
-                printf("Found");
+            else{
+                printf("Found.");
                 printf("\n");
-            }
 
-            break;
-        case 4:
-            printf("Enter the value to delete: ");
-            scanf("%d", &toDelete);
-            deleteNode(&head, toDelete);
+            }
             break;
         case 0:
             printf("Thankss");
