@@ -48,15 +48,41 @@ void traverse(struct Node *head)
     }
     printf("\n");
 }
+int search(struct Node *head, int data)
+{
+    int isFound = 0;
+    if (head == NULL)
+    {
+        /* code */
+        printf("Doubly Linked List is empty.");
+        printf("\n");
+        return;
+    }
+    struct Node *temp = head;
+    while (temp != NULL)
+    {
+        /* code */
+        if (temp->data == data)
+        {
+            /* code */
+            isFound = 1;
+            return isFound;
+            break;
+        }
+        temp = temp->next;
+    }
+    return isFound = -1;
+}
 int main()
 {
-    int choice, data;
+    int choice, data, toSearch, isFound;
     struct Node *head = NULL;
     while (1)
     {
         printf("\nDoubly Linked List Operations:\n");
         printf("1. Insert\n");
         printf("2. Traverse\n");
+        printf("3. Search\n");
         printf("0. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -70,6 +96,21 @@ int main()
             break;
         case 2:
             traverse(head);
+            break;
+        case 3:
+            printf("Enter the value to search: ");
+            scanf("%d", &toSearch);
+            isFound = search(head, toSearch);
+            if (isFound == -1)
+            {
+                printf("Not Found.");
+                printf("\n");
+            }
+            else
+            {
+                printf("Found.");
+                printf("\n");
+            }
             break;
         case 0:
             printf("Thankss");

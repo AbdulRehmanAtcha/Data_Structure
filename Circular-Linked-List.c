@@ -75,6 +75,7 @@ int search(struct Node *head, int data)
 
     return -1;
 }
+
 int main()
 {
     int choice, data, toSearch, isFound;
